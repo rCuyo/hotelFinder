@@ -11,12 +11,11 @@
   <!-- Iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
   <!-- Header -->
-  <header class="d-flex justify-content-between align-items-center px-3" >
+  <header class="d-flex justify-content-between align-items-center px-3">
     <div class="logo">HotelFinder</div>
 
     <div class="search-bar mx-3 flex-grow-1">
@@ -38,7 +37,7 @@
         Menú
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
-        <li><button class="dropdown-item" type="button">Ingresar / Registrarse</button></li>
+        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#authModal">Ingresar / Registrarse</button></li>
         <li><button class="dropdown-item" type="button">Conviértete en anfitrión</button></li>
         <li><hr class="dropdown-divider"></li>
         <li>
@@ -57,8 +56,79 @@
     <p class="lead">Tu aventura comienza aquí.</p>
   </main>
 
-  <!-- Bootstrap JS (sin jQuery, versión 5.3) -->
+  <!-- Modal de Login/Registro -->
+  <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="authModalLabel">Iniciar Sesión</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario de Login -->
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="loginEmail" placeholder="Introduce tu correo" required>
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="loginPassword" placeholder="Introduce tu contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+            <p class="text-center mt-3">
+              ¿No tienes cuenta?
+              <a href="#" id="showRegister">Regístrate aquí</a>
+            </p>
+          </form>
+
+          <!-- Formulario de Registro -->
+          <form id="registerForm" style="display: none;">
+            <div class="mb-3">
+              <label for="registerEmail" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="registerEmail" placeholder="Introduce tu correo" required>
+            </div>
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="registerPassword" placeholder="Introduce tu contraseña" required>
+            </div>
+            <div class="mb-3">
+              <label for="registerConfirmPassword" class="form-label">Confirmar Contraseña</label>
+              <input type="password" class="form-control" id="registerConfirmPassword" placeholder="Repite tu contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+            <p class="text-center mt-3">
+              ¿Ya tienes cuenta?
+              <a href="#" id="showLogin">Inicia sesión aquí</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Script para alternar entre login y registro -->
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const modalTitle = document.getElementById('authModalLabel');
+
+    document.getElementById('showRegister').addEventListener('click', (e) => {
+      e.preventDefault();
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+      modalTitle.textContent = 'Registrarse';
+    });
+
+    document.getElementById('showLogin').addEventListener('click', (e) => {
+      e.preventDefault();
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+      modalTitle.textContent = 'Iniciar Sesión';
+    });
+  </script>
 </body>
 </html>
